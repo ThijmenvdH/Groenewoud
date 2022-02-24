@@ -15,7 +15,7 @@ $(document).ready(function() {
     };
 
     // Define map global
-    var map = L.map('kaart', mapOptions);
+    let map = L.map('kaart', mapOptions);
 
     //basemaps
     let osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,18 +23,18 @@ $(document).ready(function() {
     });
     map.addLayer(osmLayer);
 
-    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    let Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
-    var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    let Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
         maxZoom: 16
     });
 
     // Polygon groenewoud
     // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
-    var groenewoud_coor = [
+    let groenewoud_coor = [
         [51.47617233840713, 5.3932109184187915],
         [51.47275084759717, 5.2435222027435415],
         [51.53600689263029, 5.119926015488748],
@@ -46,11 +46,18 @@ $(document).ready(function() {
         [51.54198602697715, 5.515433814704086],
         [51.49926068936951, 5.503074195978607]
     ];
-    var Groenewoud = L.polygon(groenewoud_coor, { color: 'blue' }).addTo(map);
+
+    let groenewoud_style = {
+        color: 'black',
+        fillOpacity: 0,
+        weight: 2,
+    }
+
+    L.polygon(groenewoud_coor, groenewoud_style).addTo(map);
 
 
     // Define layer switcher 
-    var baseMaps = {
+    let baseMaps = {
         "OpenStreetMap": osmLayer,
         "Satellietbeeld": Esri_WorldImagery,
         "Grijze kaart": Esri_WorldGrayCanvas
