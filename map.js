@@ -32,42 +32,9 @@ $(document).ready(function() {
         maxZoom: 16
     });
 
-    //De HAS studenten zijn geleerd lagen toe te voegen via een localhost
-    var gemeentegrensDB = L.tileLayer.wms('http://localhost:8080/geoserver/dyla/wms', {
-        layers: 'gemeentegrens_db',
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.5
-    });
-    map.addLayer(gemeentegrensDB);
-
-    var wegenDB = L.tileLayer.wms('http://localhost:8080/geoserver/dyla/wms', {
-        layers: 'wegen_db',
-        format: 'image/png',
-        transparent: true
-    });
-    map.addLayer(wegenDB);
-
-    var landgebruiklaag = L.tileLayer.wms('http://localhost:8080/geoserver/dyla2021/wms', {
-        layers: 'dyla_landgebruik_sqlview_opg18',
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.5,
-        viewparams: 'typelandgebruik:akkerland'
-    });
-    // map.addLayer(landgebruiklaag);
-
-    var bodemgeschiktWD = L.tileLayer.wms('http://localhost:8080/geoserver/dyla/wms', {
-        layers: 'dyla_bodemgeschikt_sqlview',
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.5
-    });
-    map.addLayer(bodemgeschiktWD);
-
     // Polygon groenewoud
     // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
-    var latlngs = [
+    var groenewoud_coor = [
         [51.47617233840713, 5.3932109184187915],
         [51.47275084759717, 5.2435222027435415],
         [51.53600689263029, 5.119926015488748],
@@ -79,7 +46,7 @@ $(document).ready(function() {
         [51.54198602697715, 5.515433814704086],
         [51.49926068936951, 5.503074195978607]
     ];
-    var Groenewoud = L.polygon(latlngs, { color: 'blue' }).addTo(map);
+    var Groenewoud = L.polygon(groenewoud_coor, { color: 'blue' }).addTo(map);
 
 
     // Define layer switcher 
@@ -88,21 +55,9 @@ $(document).ready(function() {
         "Satellietbeeld": Esri_WorldImagery,
         "Grijze kaart": Esri_WorldGrayCanvas
     };
-    var overlayMaps = {
-        "Gemeentegrens": gemeentegrensDB,
-        "Wegen": wegenDB,
-        "Landgebruik": landgebruiklaag,
-        "Bodemgeschikt": bodemgeschiktWD
-    };
-
     // Add to map
-    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    L.control.layers(baseMaps).addTo(map);
 
-    $('#typelandgebruik').on('change', function() {
-        landgebruiklaag.setParams({
-            viewparams: 'typelandgebruik:' + $(this).val()
-        });
-    });
 
     $('#naargroenewoud').on('click', function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
