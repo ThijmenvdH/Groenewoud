@@ -32,6 +32,8 @@ $(document).ready(function() {
         maxZoom: 16
     });
 
+    L.marker([5.186920166015625, 51.55999738544502]).addTo(map);
+
     // Polygon groenewoud
     // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
     var groenewoud_coor = [
@@ -62,6 +64,12 @@ $(document).ready(function() {
     $('#naargroenewoud').on('click', function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
+
+    //var punten = [5.186920166015625, 51.55999738544502]
+
+    ;
+
+
 
 
 
