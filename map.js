@@ -72,7 +72,7 @@ $(document).ready(function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
 
-    //var punten = [5.186920166015625, 51.55999738544502]
+    new L.GeoJSON(voorbeeldprojecten).addTo(map);
 
     ;
 
