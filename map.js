@@ -3,8 +3,8 @@ $(document).ready(function() {
     // Define map options
     let mapOptions = {
         zoomControl: true,
-        center: [51.541757143956204, 5.354338836338569], // centreer rond Groenewoud
-        zoom: 0,
+        center: [51.5931755007904, 5.327768325805664], // centreer rond Groenewoud
+        zoom: 11,
         minZoom: 10,
         maxBounds: [
             //south west
@@ -56,29 +56,23 @@ $(document).ready(function() {
 
     L.polygon(groenewoud_coor, groenewoud_style).addTo(map);
 
-    //Projectpunten
+    //Projectpunten inladen in kaart
     let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
 
 
-    // Define layer switcher 
+    // Define layer switcher, hiermee kan je van basemap wisselen
     let baseMaps = {
         "OpenStreetMap": osmLayer,
         "Satellietbeeld": Esri_WorldImagery,
         "Grijze kaart": Esri_WorldGrayCanvas
     };
+
     // Add to map
     L.control.layers(baseMaps).addTo(map);
 
 
+    // Knop voor centreren
     $('#naargroenewoud').on('click', function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
-
-
-    ;
-
-
-
-
-
 });
