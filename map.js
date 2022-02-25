@@ -32,7 +32,7 @@ $(document).ready(function() {
         maxZoom: 16
     });
 
-    L.marker([5.186920166015625, 51.55999738544502]).addTo(map);
+    let marker = L.marker([51.55999738544502, 5.186920166015625]).addTo(map);
 
     // Polygon groenewoud
     // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
