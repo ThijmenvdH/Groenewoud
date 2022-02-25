@@ -4,7 +4,7 @@ $(document).ready(function() {
     let mapOptions = {
         zoomControl: true,
         center: [51.541757143956204, 5.354338836338569], // centreer rond Groenewoud
-        zoom: 13,
+        zoom: 0,
         minZoom: 10,
         maxBounds: [
             //south west
@@ -32,7 +32,6 @@ $(document).ready(function() {
         maxZoom: 16
     });
 
-    let marker = L.marker([51.55999738544502, 5.186920166015625]).addTo(map);
 
     // Polygon groenewoud
     // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
@@ -53,9 +52,12 @@ $(document).ready(function() {
         color: 'black',
         fillOpacity: 0,
         weight: 2,
-    }
+    };
 
     L.polygon(groenewoud_coor, groenewoud_style).addTo(map);
+
+    //Projectpunten
+    let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
 
 
     // Define layer switcher 
@@ -72,7 +74,6 @@ $(document).ready(function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
 
-    new L.GeoJSON(voorbeeldprojecten).addTo(map);
 
     ;
 
