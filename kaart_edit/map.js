@@ -12,10 +12,7 @@ $(document).ready(function() {
             //north east
             [51.75722639734795, 6.406109808681152]
         ],
-        drawControl: true,
     };
-
-
 
     // Define map global
     let map = L.map('kaart', mapOptions);
@@ -40,7 +37,6 @@ $(document).ready(function() {
 
 
     // Polygon groenewoud
-    // Dit kan ook maar via localhost is mss mooier en makkelijker met toevoegen, verwijderen en aanpassen voor de klant
     let groenewoud_coor = [
         [51.47617233840713, 5.3932109184187915],
         [51.47275084759717, 5.2435222027435415],
@@ -62,9 +58,6 @@ $(document).ready(function() {
 
     L.polygon(groenewoud_coor, groenewoud_style).addTo(map);
 
-    //Projectpunten inladen in kaart
-    let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
-
     // Define layer switcher, hiermee kan je van basemap wisselen
     let baseMaps = {
         "OpenStreetMap": osmLayer,
@@ -73,9 +66,8 @@ $(document).ready(function() {
     };
 
     // Add controls van basemaps en van aanpasbare layer to map
-    L.control.layers(baseMaps, { 'drawlayer': drawnItems }, { position: 'topright', collapsed: false }).addTo(map);
+    L.control.layers(baseMaps, { 'Projecten': drawnItems }, { position: 'topright', collapsed: false }).addTo(map);
 
-    // Iets
     map.addControl(new L.Control.Draw({
         edit: {
             featureGroup: drawnItems,
@@ -91,9 +83,20 @@ $(document).ready(function() {
         }
     }));
 
+    // Event handler voor als user een vector heeft aangemaakt
+    const polygonCoorContainer = document.getElementById('polygon-coordinaten')
+
     map.on(L.Draw.Event.CREATED, function(event) {
-        var layer = event.layer;
-        console.log(layer._latlngs)
+        let type = event.layerType,
+            layer = event.layer;
+
+        // Als de user een polygon heeft aangemaakt, laat coordinaten van de polygon zien op de pagina
+        if (type === 'polygon') {
+            polygonCoor = document.createElement('p');
+            polygonCoor.textContent = layer._latlngs[0];
+            polygonCoorContainer.appendChild(polygonCoor);
+        };
+
         drawnItems.addLayer(layer);
     });
 
