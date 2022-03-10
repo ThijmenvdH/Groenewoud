@@ -11,8 +11,11 @@ $(document).ready(function() {
             [51.37643757456056, 4.439292835138251],
             //north east
             [51.75722639734795, 6.406109808681152]
-        ]
+        ],
+        drawControl: true,
     };
+
+
 
     // Define map global
     let map = L.map('kaart', mapOptions);
@@ -31,6 +34,9 @@ $(document).ready(function() {
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
         maxZoom: 16
     });
+
+    // Laag om user-drawn polygon op te slaan
+    let drawnItems = L.featureGroup().addTo(map);
 
 
     // Polygon groenewoud
@@ -59,7 +65,6 @@ $(document).ready(function() {
     //Projectpunten inladen in kaart
     let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
 
-
     // Define layer switcher, hiermee kan je van basemap wisselen
     let baseMaps = {
         "OpenStreetMap": osmLayer,
@@ -67,8 +72,30 @@ $(document).ready(function() {
         "Grijze kaart": Esri_WorldGrayCanvas
     };
 
-    // Add to map
-    L.control.layers(baseMaps).addTo(map);
+    // Add controls van basemaps en van aanpasbare layer to map
+    L.control.layers(baseMaps, { 'drawlayer': drawnItems }, { position: 'topright', collapsed: false }).addTo(map);
+
+    // Iets
+    map.addControl(new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems,
+            poly: {
+                allowIntersection: false
+            }
+        },
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                showArea: true
+            }
+        }
+    }));
+
+    map.on(L.Draw.Event.CREATED, function(event) {
+        var layer = event.layer;
+        console.log(layer._latlngs)
+        drawnItems.addLayer(layer);
+    });
 
 
     // Knop voor centreren
