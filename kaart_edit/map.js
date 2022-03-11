@@ -99,7 +99,7 @@ $(document).ready(function() {
             array.push(point);
         })
 
-        return array
+        return JSON.stringify(array)
     }
 
     // Event handler voor als user een vector heeft aangemaakt
