@@ -65,7 +65,7 @@ $(document).ready(function() {
         "Grijze kaart": Esri_WorldGrayCanvas
     };
 
-    // Add controls van basemaps en van aanpasbare layer to map
+    // Add controls voor basemaps en van aanpasbare layer to map
     L.control.layers(baseMaps, { 'Projecten': drawnItems }, { position: 'topright', collapsed: false }).addTo(map);
 
     map.addControl(new L.Control.Draw({
@@ -79,7 +79,11 @@ $(document).ready(function() {
             polygon: {
                 allowIntersection: false,
                 showArea: true
-            }
+            },
+            marker: false,
+            polyline: false,
+            circle: false,
+            rectangle: false,
         }
     }));
 
