@@ -86,6 +86,21 @@ $(document).ready(function() {
             rectangle: false,
         }
     }));
+    // Function om polygon op te slaan in formaat: [[x-coor, y-coor][etc.]]
+    function convertToCoorArray(layer) {
+        let array = [];
+        //Get coordinates
+        let coordinates = layer._latlngs[0];
+
+        coordinates.forEach(coor => {
+            let point = [];
+            point.push(coor.lat);
+            point.push(coor.lng);
+            array.push(point);
+        })
+
+        return array
+    }
 
     // Event handler voor als user een vector heeft aangemaakt
     const polygonCoorContainer = document.getElementById('polygon-coordinaten')
@@ -97,7 +112,8 @@ $(document).ready(function() {
         // Als de user een polygon heeft aangemaakt, laat coordinaten van de polygon zien op de pagina
         if (type === 'polygon') {
             polygonCoor = document.createElement('p');
-            polygonCoor.textContent = layer._latlngs[0];
+            console.log(convertToCoorArray(layer));
+            polygonCoor.textContent = convertToCoorArray(layer);
             polygonCoorContainer.appendChild(polygonCoor);
         };
 
