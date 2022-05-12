@@ -99,7 +99,7 @@ $(document).ready(function() {
             array.push(point);
         })
 
-        return JSON.stringify(array)
+        return array
     }
 
     // Event handler voor als user een vector heeft aangemaakt
@@ -113,7 +113,7 @@ $(document).ready(function() {
         if (type === 'polygon') {
             polygonCoor = document.createElement('p');
             console.log(convertToCoorArray(layer));
-            polygonCoor.textContent = convertToCoorArray(layer);
+            polygonCoor.textContent = JSON.stringify(convertToCoorArray(layer));
             polygonCoorContainer.appendChild(polygonCoor);
         };
 
