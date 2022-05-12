@@ -77,6 +77,16 @@ $(document).ready(function() {
         "Minimalistisch": L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png', {
             attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
         }),
+
+        "Waterlichamen": L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/water/EPSG:3857/{z}/{x}/{y}.png', {
+            minZoom: 6,
+            maxZoom: 19,
+            bounds: [
+                [50.5, 3.25],
+                [54, 7.6]
+            ],
+            attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
+        })
     };
 
     // Add to map
