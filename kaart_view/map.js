@@ -49,6 +49,16 @@ $(document).ready(function() {
     //Projectpunten inladen in kaart
     let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
 
+
+    // Importeren projecten vanaf Geoserver(database)
+    var projecten = L.tileLayer.wms('http://localhost:8080/geoserver/Avans_Groenewoud/wms', {
+        layers: 'groenewoud projecten sql',
+        format: 'image/png',
+        transparent: true,
+        opacity: 0.5
+    });
+    map.addLayer(projecten);
+
     // Define layer switcher, hiermee kan je van basemap wisselen
     let baseMaps = {
         "OpenStreetMap": osmLayer,
@@ -97,4 +107,13 @@ $(document).ready(function() {
     $('#naargroenewoud').on('click', function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
+
+    // Slider waarde
+    $('#sliderjaar').on('input', function() {
+        bodemgeschikt.setParams({
+            viewparams: 'aantaljaar:' + $(this).val()
+        });
+        $('#sliderwaarde').text(2021 + parseInt($(this).val()));
+    });
+
 });
