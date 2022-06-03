@@ -46,18 +46,23 @@ $(document).ready(function() {
 
     L.polygon(groenewoud_coor, groenewoud_style).addTo(map);
 
-    //Projectpunten inladen in kaart
-    let projectenPunten = L.geoJSON(voorbeeldprojecten).addTo(map);
+    //Projectpunten inladen
+    let projectenPunten = L.geoJSON(voorbeeldprojecten);
 
-
-    // Importeren projecten vanaf Geoserver(database)
-    var projecten = L.tileLayer.wms('http://localhost:8080/geoserver/Avans_Groenewoud/wms', {
-        layers: 'groenewoud projecten sql',
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.5
+    //Blauwe icon voor actieve taken
+    var blueIcon = L.icon({
+        iconUrl: 'marker-icon-blue.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
     });
-    map.addLayer(projecten);
+
+    //Grijze icon voor voltooide taken
+    var greyIcon = L.icon({
+        iconUrl: 'marker-icon-grey.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+    });
+
 
     // Define layer switcher, hiermee kan je van basemap wisselen
     let baseMaps = {
@@ -108,12 +113,58 @@ $(document).ready(function() {
         map.flyTo([51.541757143956204, 5.354338836338569], 13);
     });
 
-    // Slider waarde
-    $('#sliderjaar').on('input', function() {
-        bodemgeschikt.setParams({
-            viewparams: 'aantaljaar:' + $(this).val()
+    // Datum voor slider. Moet het begindatum van het project zijn
+    let beginDatum = new Date("2022-06-03");
+
+    // Method om dagen toe te voegen aan date voor slider.
+    Date.prototype.addDays = function(days) {
+        let date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    };
+
+    // Method om date te formateren als dd-mm-yyyy
+    Date.prototype.formatDate = function() {
+        let year = this.getFullYear();
+        let month = this.getMonth() + 1;
+        let date = this.getDate();
+        return `${date}-${month}-${year}`;
+    }
+
+    // Slider verandert event handler
+    $('#slider').on('input', function() {
+        // Bereken de geselecteerde datum
+        selectedDatum = beginDatum.addDays(parseInt($(this).val()));
+
+        // Update de sliderwaarde text
+        $('#sliderwaarde').text(selectedDatum.formatDate());
+
+        // Loop door alle punten in projectenPunten.
+        projectenPunten.eachLayer(function(layer) {
+            // Verwijder het punt als het aanwezig is
+            map.removeLayer(layer);
+
+            // Als eindatum van punt voor/gelijk is aan selectedDatum, maak punt grijs en laat punt zien, of
+            // als begindatum van punt voor/gelijk is aan selectedDatum, maak punt blauw en laat punt zien.
+            taakBeginDatum = new Date(layer.feature.properties.begindatum);
+            taakEindDatum = new Date(layer.feature.properties.einddatum);
+
+            if (taakEindDatum <= selectedDatum) {
+                layer.setIcon(greyIcon);
+                layer.addTo(map);
+            } else if (taakBeginDatum <= selectedDatum) {
+                layer.addTo(map);
+                layer.setIcon(blueIcon);
+            };
         });
-        $('#sliderwaarde').text(2021 + parseInt($(this).val()));
     });
 
+    // Loop voor eerste punten weergeven bij openen pagina
+    projectenPunten.eachLayer(function(layer) {
+        taakBeginDatum = new Date(layer.feature.properties.begindatum);
+        if (taakBeginDatum <= beginDatum) {
+            layer.setIcon(blueIcon);
+            layer.addTo(map);
+        }
+    });;
 });

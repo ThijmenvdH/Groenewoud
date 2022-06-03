@@ -6,7 +6,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "voorbeeldproject-3"
+            "naam": "voorbeeldproject-3",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
@@ -18,7 +20,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "voorbeeldproject-2"
+            "naam": "voorbeeldproject-2",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
@@ -30,7 +34,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "voorbeeldproject-1"
+            "naam": "voorbeeldproject-1",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
@@ -42,7 +48,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "projectnaam-4"
+            "naam": "projectnaam-4",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
@@ -54,7 +62,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "voorbeeldproject-6"
+            "naam": "voorbeeldproject-6",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
@@ -66,7 +76,9 @@ let voorbeeldprojecten = {
             "marker-color": "#7e7e7e",
             "marker-size": "medium",
             "marker-symbol": "",
-            "naam": "voorbeeldproject-5"
+            "naam": "voorbeeldproject-5",
+            "begindatum": "03-6-2022",
+            "einddatum": "07-06-2022",
         },
         "geometry": {
             "type": "Point",
